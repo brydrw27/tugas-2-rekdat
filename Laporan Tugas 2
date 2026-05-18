@@ -1,3 +1,329 @@
+\documentclass[11pt,a4paper,openright,notitlepage]{report}
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs, makecell}
+\setcellgapes{0.5cm}
+\usepackage{parallel,enumitem}
+\usepackage{multicol}
+\setlength{\columnseprule}{1pt}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage[demo]{graphicx}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=black]{hyperref}
+\usepackage{amsmath}
+\usepackage{ragged2e} 
+\usepackage{subfigure}
+\documentclass{article}
+\usepackage{url}
+\usepackage{multirow}
+\renewcommand{\tablename}{Tabel}
+
+
+\usepackage[utf8]{inputenc}
+
+\setlength{\cftbeforechapskip}{10pt}
+\setlength{\cftbeforesecskip}{10pt} 
+\setlength{\cftbeforesubsecskip}{0pt}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{15pt}
+
+\setlength{\cftbeforeloftitleskip}{10pt}   % Sebelum judul List of Figures
+\setlength{\cftafterloftitleskip}{5pt}    % Setelah judul List of Figures
+
+\setlength{\cftbeforelottitleskip}{0pt}   % Sebelum judul List of Tables
+\setlength{\cftafterlottitleskip}{5pt}    % Setelah judul List of Tables
+
+\renewcommand{\cfttoctitlefont}{\normalfont\LARGE\bfseries}
+\renewcommand{\cftloftitlefont}{\normalfont\LARGE\bfseries}
+\renewcommand{\cftlottitlefont}{\normalfont\LARGE\bfseries}
+
+
+\renewcommand\cftsecfont{\small}
+
+\newcommand{\phantompageref}{\def\@currentHref{page.\@the@H@page}}
+\makeatother
+\usepackage{everypage}
+\AddEverypageHook{\raisebox{1in}[0pt][0pt]{\hypertarget{pagetop.\thepage}{}}}
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage[hidelinks, colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage{emptypage}%halaman kosong antar bab
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{setspace}%line spacing
+\usepackage{color}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage[margin=2cm]{geometry}
+\setcounter{secnumdepth}{3}
+\usepackage[table]{xcolor}
+\usepackage{graphicx,wrapfig,lipsum}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{enumitem,kantlipsum}
+\usepackage[indonesian]{babel}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{float}
+\usepackage{minted}
+\usepackage[square]{natbib}
+
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\renewcommand{\thesection}{\arabic{section}}
+
+\graphicspath{{./Gambar/}}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\def\cftbibfont{\small}
+\renewcommand{\cftbibtitlefont}{\normalfont\LARGE\bfseries}
+
+\begin{document}
+
+\raggedbottom
+\pagestyle{empty}%tidak ada nomor halaman
+
+% Judul makalah
+\begin{center}
+		{\Large \textbf{LAPORAN TUGAS 2 \\\vspace{0.45cm} 
+		\textbf{REKAYASA DATA}}\\\vspace{2cm}
+		\includegraphics[width=0.5\textwidth]{logo unpar.png}\\\vspace{2cm}
+
+    
+		\textbf{Anggota Kelompok B (Kelas A) :} \\
+		\vspace{0.5 cm}
+        \vspace{0.5cm} 
+    
+		\parbox[c]{0.6\textwidth}{
+		Winata Cang Vielon \hfill 6162301007\\
+        Maria Chelsea Olivia \hfill 6162301009 \\
+        Marco Dharmaputra  \hfill 6162301041\\
+        Febriana Austin Darmawan \hfill 6162301069\\
+        Bryant Andrew Kristiali \hfill 6162301073}
+		\vfill
+		\textbf{
+            Dosen:\\
+            Robby, M.Si \\
+            \vspace{1.5cm}
+		PROGRAM STUDI MATEMATIKA\\
+		FAKULTAS SAINS\\
+		UNIVERSITAS KATOLIK PARAHYANGAN\\
+		2026}
+		}
+\end{center}
+\clearpage
+
+\renewcommand{\contentsname}{Daftar Isi}
+\renewcommand{\cftsecfont}{\normalfont\large\bfseries}
+\renewcommand{\cftchapfont}{\normalfont\large\bfseries}
+\renewcommand*{\cftchappagefont}{\bfseries}
+\renewcommand*{\cftsecpagefont}{\bfseries}
+
+\addcontentsline{toc}{section}{Daftar Isi}
+\tableofcontents
+
+\newpage
+\renewcommand{\listtablename}{Tabel}
+\phantomsection
+\section*{\LARGE Daftar Tabel}
+\addcontentsline{toc}{section}{Daftar Tabel}
+\listoftables
+
+\newpage
+\renewcommand{\listfigurename}{Gambar}
+\phantomsection
+\section*{\LARGE Daftar Gambar}
+\addcontentsline{toc}{section}{Daftar Gambar}
+\listoffigures
+
+\newpage
+
+
+
+\section{Pendahuluan}\\
+\noindent Dalam pengelolaan data, kualitas data merupakan salah satu aspek penting yang memengaruhi ketepatan hasil analisis maupun pengambilan keputusan. Data mentah yang diperoleh dari berbagai sumber sering kali masih mengandung ketidakkonsistenan format, nilai kosong (\textit{missing value}), maupun data yang tidak valid. Oleh karena itu, diperlukan proses pengolahan data sebelum data dapat digunakan lebih lanjut.\\
+
+\noindent Pada tugas ini dilakukan proses \textit{Extract}, \textit{Transform}, \textit{Load} (ETL) menggunakan Talend Open Studio terhadap tiga buah file CSV, yaitu tabel \textit{students}, \textit{courses}, dan \textit{enrollments}. Tahap \textit{extraction} dilakukan dengan membaca serta menentukan tipe data yang sesuai untuk setiap atribut pada file CSV. Selanjutnya, tahap transformation dilakukan untuk membersihkan data, menangani nilai kosong, memperbaiki format yang tidak konsisten, serta menambahkan atribut baru berupa \textit{score\_rounded} dan \textit{grade}. Setelah proses transformasi selesai, tahap loading dilakukan dengan menghasilkan file CSV baru yang telah bersih dan siap digunakan.\\
+
+\noindent Selain implementasi ETL di Talend Open Studio, dilakukan pula eksplorasi awal data menggunakan Microsoft Excel untuk mengidentifikasi permasalahan pada data mentah. Hasil eksplorasi tersebut digunakan sebagai dasar dalam menentukan keputusan transformasi data yang dilakukan selama proses ETL.\\
+
+\section{Eksplorasi Data}
+Diberikan tiga buah \textit{file} CSV mentah bernama \textbf{\textit{students}}, \textbf{\textit{enrollment}}, dan \textbf{\textit{courses}} yang saling berkaitan mengenai mahasiswa dan mata kuliah. Namun, setelah dilakukan peninjauan awal terhadap data, ditemukan bahwa struktur dan isi data pada masing-masing \textit{file} masih belum sepenuhnya rapi, konsisten, maupun siap untuk langsung digunakan pada tahap pengolahan berikutnya, yaitu ETL (\textit{Extract, Transform, Load}). Oleh karena itu, telah dilakukan eksplorasi terhadap ketiga \textit{file} mentah tersebut untuk mengidentifikasi berbagai bentuk ketidakkonsistenan yang ada. \\
+
+\noindent Hasil eksplorasi ini akan digunakan sebagai dasar dalam menentukan langkah-langkah pembersihan dan transformasi data agar data menjadi lebih terstruktur, konsisten, dan siap untuk ditampilkan. Berikut hasil eksplorasi ketiga data tersebut,
+\begin{enumerate}
+    \item \textbf{Tabel Students}\\
+    Dalam data ini, atribut terdapat ketidakkonsistenan format penulisan. Perhatikan contoh baris berikut ini.
+        \begin{longtable}{|c|}
+        \caption{Contoh Baris Atribut \textit{full\_name}}
+        \hline
+        \textbf{full\_name} \\ \hline
+        \endfirsthead
+        \endhead
+        toni gunawan \\ \hline
+        ULFA HIDAYATI\\ \hline
+        Vina Oktaviani\\ \hline
+        \end{longtable}
+        
+    Pada atribut \textit{email} terjadi ketidakkonsistenan format penulisan yang dapat dilihat pada tabel di bawah ini. Dengan asumsi bahwa setiap mahasiswa diperkenankan untuk memiliki kebebasan nama pengguna sebelum tanda penghubung (@) sehingga yang ditinjau hanya bagian domain email.
+    \renewcommand{\arraystretch}{1.3}
+        \setlength{\tabcolsep}{12pt}
+        \begin{longtable}{|c|}
+        \caption{Contoh Baris Atribut \textit{email}}
+        \hline
+        \textbf{email}\\
+        \hline
+        \endfirsthead
+        \endhead
+        toni.gunawan@mail.com
+                        \\ \hline
+        budi@gmail
+                        \\ \hline
+        farah@@mail.com
+                      \\ \hline
+        ulfa@mail
+                        \\ \hline
+        \end{longtable}
+    Terdapat juga nilai kosong pada kolom \textit{email}. Perhatikan baris berikut ini.
+    \renewcommand{\arraystretch}{1.3}
+        \setlength{\tabcolsep}{12pt}
+        \begin{longtable}{|c|c|c|}
+        \caption{Contoh Baris dengan Nilai \textit{Null} pada Tabel \textit{students}} \\
+        \hline
+        \textbf{student\_id} & \textbf{full\_name} & \textbf{email} \\
+        \hline
+        \endfirsthead
+        \hline
+        \textbf{student\_id} & \textbf{full\_name} & \textbf{email} \\
+        \hline
+        \endhead
+        1004 & Dewi Ayu & (null) \\ \hline
+        1012 & LUCKY PERMANA & (null) \\ \hline
+        1023 & wahyu saptono & (null) \\ \hline
+    \end{longtable}
+
+        
+    \item \textbf{Tabel Enrollments}\\
+    Dalam data ini, terdapat ketidakkonsistenan format penulisan. Perhatikan contoh baris berikut ini.
+    \renewcommand{\arraystretch}{1.3}
+        \setlength{\tabcolsep}{12pt}
+        \begin{longtable}{|c|}
+        \caption{Contoh Baris Atribut \textit{score}}
+        \hline
+        \textbf{score}\\
+        \hline
+        \endfirsthead
+        \endhead
+        64.8                        \\ \hline
+        60.6                        \\ \hline
+        78.6                      \\ \hline
+        \end{longtable}
+    Penggunaan titik sebagai pemisah desimal pada kolom score dapat menyebabkan masalah interpretasi tipe data tergantung pada konfigurasi regional sistem.
+    \\
+
+    
+    \item \textbf{Tabel Courses}\\
+    Dataset ini konsisten secara format, tidak ditemukan nilai kosong sehingga dataset ini dapat disebut sebagai \textit{clean data}.
+    \\
+\end{enumerate}
+
+\section{Extraction}
+
+\noindent Tahap \textit{extraction} dilakukan dengan mengimpor ketiga file CSV, yaitu \textit{students.csv}, \textit{courses.csv}, dan \textit{enrollments.csv} ke dalam Talend Open Studio menggunakan fitur Metadata dan \textit{File Delimited}. Pada proses ini, separator yang digunakan adalah tanda koma (,), serta baris pertama pada file dijadikan sebagai header agar nama kolom dapat terbaca dengan benar.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{extraction.png}
+    \caption{Extraction}
+    \label{fig:label_gambar}
+\end{figure}
+
+
+\noindent Setelah file berhasil diimpor, dilakukan penyesuaian tipe data pada setiap atribut sesuai dengan karakteristik datanya. Penentuan tipe data yang tepat diperlukan agar proses transformasi dan pengolahan data dapat berjalan dengan baik tanpa menimbulkan kesalahan pembacaan data.\\
+
+\noindent Adapun tipe data yang digunakan adalah sebagai berikut:
+
+\begin{table}[htpb]
+\centering
+\caption{Tipe Data}
+\begin{tabular}{|c|l|l|}
+\hline
+\textbf{Tabel} & \textbf{Kolom} & \textbf{Tipe Data} \\ \hline
+students                 & student\_id       & String               \\ \hline
+students                & full\_name            & String       \\ \hline
+students              & email         & String              \\ \hline
+
+courses                 & course\_id       & String               \\ \hline
+courses                & course\_name            & String       \\ \hline
+enrollments              & student\_id         & String              \\ \hline
+enrollments                 & course\_id       & String               \\ \hline
+enrollments                & score            & Float    \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent Kolom \textit{student\_id} dan \textit{course\_id} disimpan dalam bentuk String untuk menghindari permasalahan seperti hilangnya karakter tertentu atau perubahan format data. Sementara itu, kolom score menggunakan tipe data Double karena berisi nilai numerik desimal.\\
+
+\noindent Pada tahap ini tidak dilakukan perubahan data secara langsung menggunakan \textit{Microsoft Excel}. Seluruh proses pembersihan dan perbaikan data dilakukan sepenuhnya pada tahap transformasi di Talend Open Studio sesuai ketentuan tugas.\\
+
+\section{Transformation}
+\noindent Tahap transformation dilakukan menggunakan Talend Open Studio untuk membersihkan dan memperbaiki data yang masih memiliki ketidakkonsistenan format. Seluruh proses transformasi dilakukan pada satu job dengan memanfaatkan komponen \textit{tFileInputDelimited} dan \textit{tMap}.
+
+\subsection{Pembersihan Tabel Students}
+\noindent Transformasi pertama dilakukan pada tabel \textit{students} untuk memperbaiki format penulisan nama serta membersihkan atribut email.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{stud1.jpeg}
+    \caption{Metadata \textit{students}}
+\end{figure}
+
+\noindent Langkah awal dilakukan dengan menambahkan komponen \textit{tFileInputDelimited} ke dalam workspace Talend. Pada bagian \textit{Component}, file \textit{students.csv} dipilih sebagai sumber data dengan separator menggunakan tanda koma (,). Selanjutnya, jumlah \textit{header} diubah menjadi 1 agar baris pertama terbaca sebagai nama kolom. Label pada \textit{view} diubah menjadi \textit{Students} agar lebih mudah dikenali pada alur proses.\\
+
+\noindent Setelah itu, dilakukan pengaturan \textit{schema} dengan menekan tombol titik tiga (\textit{Edit Schema}) pada komponen \textit{tFileInputDelimited}. Pada tahap ini, atribut \textit{student\_id, full\_name}, dan \textit{email} diatur menggunakan tipe data String.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{students2.png}
+    \caption{\textit{Schema}}
+\end{figure}
+
+\noindent Selanjutnya, ditambahkan komponen \textit{tMap} untuk melakukan proses transformasi data. Komponen \textit{students} kemudian dihubungkan ke \textit{tMap} melalui koneksi Row → Main.\\
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{stud3.jpeg}
+    \caption{tMap}
+\end{figure}
+
+\noindent Setelah masuk ke tampilan \textit{tMap}, buat tabel \textit{output} bernama \textit{StudentCleaned} kemudian seluruh atribut dari tabel \textit{input} (out1) dipindahkan ke tabel \textit{output} (\textit{StudentCleaned}) dengan cara melakukan \textit{drag} dari sisi kiri ke sisi kanan.\\
+
+\noindent  Pada tabel output dilakukan proses pembersihan data terhadap atribut \textit{full\_name} dan \textit{email} dengan mengganti \textit{expression} pada baris row1.full\_name dan baris row1.email.\\
+
+\noindent Untuk mengubah variasi penulisan nama mahasiswa yang tidak seragam menjadi format \textit{Proper Case} (huruf kapital hanya terletak pada karakter pertama di setiap kata), diterapkan kombinasi fungsi manipulasi string dan \textit{Regular Expression }(Regex). Ubah \textit{exspression} row1.full\_name menjadi \textit{expression} java sebagai berikut.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{stud4.jpeg}
+    \caption{Expression full\_name}
+\end{figure}
+
+\noindent Selanjutnya, berdasarkan hasil eksplorasi awal, data mentah pada kolom surel tidak dapat dipertahankan karena banyaknya kerusakan format domain teks dan tingginya angka \textit{missing value}. Sebagai solusinya, diambil kebijakan teknis untuk membangun kembali alamat surel mahasiswa secara seragam menggunakan metode penggabungan string berbasis kode identitas unik mahasiswa (\textit{student\_id}). Lakukan juga perubahan pada expression row1.email menjadi \textit{expression java} sebagai berikut.\\
 
 \begin{figure}[H]
     \centering
