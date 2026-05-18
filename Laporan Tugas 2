@@ -1,0 +1,334 @@
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{stud5.jpeg}
+    \caption{\textit{Expression email}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{stud6.jpeg}
+    \caption{\textit{studentcleaned}}
+\end{figure}
+
+
+\subsection{Hasil Pembersihan Tabel Student}
+\noindent Setelah seluruh pembersihan \textit{full\_name} dan \textit{email} berhasil dilakukan pada \textit{tMap\_1}, data hasil pemrosesan tersebut dialirkan keluar melalui koneksi row (Main) bernama \textit{StudentCleaned}. Aliran data ini bermuara pada komponen target \textit{file delimited }yang diberi label \textit{StudentsCleaned}.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{stud8.jpeg}
+    \caption{Tampilan \textit{job design}}
+\end{figure}
+
+\noindent Untuk menyimpan hasil transformasi menjadi berkas penyimpanan fisik, dilakukan pengaturan properti pada menu Basic Settings komponen \textit{StudentsCleaned} (\textit{tFileOutputDelimited\_1}) dengan ketentuan sebagai berikut.\\
+
+\noindent Jalur direktori penyimpanan diarahkan untuk menghasilkan berkas fisik CSV baru dengan penamaan \textit{student\_cleaned\_B.csv}, separator yang digunakan adalah tanda koma (,), serta baris pertama pada file dijadikan
+sebagai \textit{header} agar nama kolom dapat terbaca dengan benar.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{stud7.jpeg}
+    \caption{\textit{StudentCleaned}}
+\end{figure}
+
+\noindent Ketika alur kerja data (Data Flow Graph) ini dieksekusi secara sinkron, pipa pemrosesan data pada komponen \textit{tMap\_1} berhasil memproses total 50 baris data secara instan dengan kecepatan pemrosesan mencapai 2380.95 rows/s (selesai dalam waktu 0.02 detik). Proses ini mencatat tingkat keberhasilan mutlak 100. Perhatikan eksekusi job berikut.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{stud9.jpeg}
+    \caption{Eksekusi Job}
+\end{figure}
+
+\noindent Berikut adalah tampilan hasil \textit{student\_cleaned\_B.csv} yang telah bersih serta siap untuk digunakan sebagai tabel referensi (\textit{lookup flow}) pada tahap penggabungan data relasional selanjutnya.\\
+
+\begin{table}[H]
+\centering
+\caption{Sampel Hasil Pembersihan Tabel \textit{Students} (5 Data Teratas)}
+\begin{tabular}{|c|l|l|}
+\hline
+\textbf{student\_id} & \textbf{full\_name} & \textbf{email\_clean} \\ \hline
+1001                 & Andi Wijaya        & 1001@mail.com         \\ \hline
+1002                 & Budi Santoso        & 1002@mail.com         \\ \hline
+1003                 & Citra Lestari       & 1003@mail.com         \\ \hline
+1004                 & Dewi Ayu            & 1004@mail.com         \\ \hline
+1005                 & Eko Prasetyo        & 1005@mail.com         \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Transformasi Data \textit{Enrollments}}
+\noindent Pada tabel \textit{enrollments}, dilakukan proses transformasi terhadap atribut \textit{score}. Nilai pada atribut tersebut dibulatkan ke bilangan bulat terdekat melalui fungsi pembulatan bawah \textit{(flooring)} dan disimpan pada atribut baru bernama \textit{score\_rounded}.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{enroll1.jpeg}
+    \caption{Metadata enrollments}
+\end{figure}
+
+
+\noindent Transformasi ini dilakukan menggunakan ekspresi kondisi pada komponen \textit{tMap}.
+\noindent Langkah pertama dilakukan dengan melakukan drag metadata \textit{enrollments} ke dalam \textit{workspace} Talend. Setelah itu, ditambahkan komponen \textit{tMap} dan komponen \textit{FileOutputDelimited} sebagai \textit{output} hasil transformasi.\\
+
+\noindent Komponen enrollments kemudian dihubungkan ke \textit{tMap} melalui koneksi \textit{Row} → \textit{Main}. Di dalam editor \textit{tMap}, dibuat tabel output baru bernama \textit{Flooring}. Seluruh atribut seperti \textit{student\_id}, \textit{course\_id}, dan \textit{score} dipindahkan dari tabel input ke tabel \textit{output} dengan cara melakukan \textit{drag} dari sisi kiri ke sisi kanan.\\
+
+\noindent Untuk menghasilkan atribut \textit{score\_rounded}, dilakukan perubahan \textit{expression} pada kolom output menggunakan fungsi Java untuk menghilangkan angka desimal pada atribut \textit{score}.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{enroll2.jpeg}
+    \caption{Expression score}
+\end{figure}
+
+\noindent Hasil transformasi tersebut kemudian dialirkan menuju komponen \textit{tFileOutputDelimited} yang diberi label \textit{enrollmentgrounded}. Komponen ini digunakan untuk menghasilkan file CSV hasil pembulatan nilai.Setelah proses \textit{flooring} selesai dilakukan, ditambahkan kembali komponen \textit{tMap} kedua untuk membuat atribut \textit{grade}. Komponen \textit{enrollmentgrounded} dihubungkan menuju \textit{tMap} kedua melalui koneksi \textit{Row} → \textit{Main}.\\
+
+\noindent Pada editor \textit{tMap} kedua, dibuat tabel \textit{output} baru bernama \textit{enrollmentgraded}. Selanjutnya dilakukan pengelompokan nilai berdasarkan atribut \textit{score\_rounded} menggunakan ekspresi kondisi Java sehingga setiap mahasiswa memperoleh kategori \textit{grade} A, B, C, atau D sesuai ketentuan yang telah ditetapkan.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{enroll4.jpeg}
+    \caption{Tabel Flooring}
+\end{figure}
+
+\noindent Setelah seluruh perubahan ekspresi pembulatan bawah selesai diatur di dalam editor skema \textit{tMap\_1}, langkah selanjutnya adalah menyiapkan komponen penampung untuk mencetak hasil transformasi tersebut menjadi berkas fisik. Tambahkan komponen \textit{tFileInputDelimited}, kemudian pada bagian view ubah label formatnya menjadi \textit{enrollmentgrounded} dan sesuaikan juga untuk format penamaan file yang akan mengeluarkan berkas.\\
+
+\noindent Hubungkan komponen \textit{tMap\_1} menuju komponen \textit{output} \textit{enrollmentgrounded} yang baru saja disiapkan. Proses interkoneksi ini dilakukan dengan mengklik kanan komponen \textit{tMap\_1}, memilih opsi koneksi \textit{Row} $\rightarrow$ \textit{Flooring} (menandakan nama skema \textit{output} yang telah dibuat sebelumnya) , lalu menarik garis panah tersebut hingga terhubung secara pas ke ikon komponen \textit{enrollmentgrounded}.\\
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{enroll5.jpeg}
+    \caption{Eksekusi Job}
+\end{figure}
+
+\noindent Hasil akhir transformasi kemudian dialirkan menuju komponen \textit{tFileOutputDelimited} dengan label \textit{enrollmentgrounded} sehingga menghasilkan file CSV baru yang berisi atribut:
+\begin{enumerate}
+    \item \textit{student\_id}
+    \item \textit{course\_id}
+    \item \textit{score\_rounded}
+\end{enumerate}
+
+\noindent Berikut merupakan 5 baris hasil transformasi data pada tabel \textit{enrollmentgrounded.}
+
+\begin{table}[H]
+\centering
+\caption{Sampel Hasil Pembulatan Nilai (\textit{Flooring Process})}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{student\_id} & \textbf{course\_id} & \textbf{score\_rounded} \\ \hline
+1001                 & IF101               & 64                      \\ \hline
+1001                 & IF103               & 60                      \\ \hline
+1002                 & IF105               & 78                      \\ \hline
+1002                 & IF101               & 56                      \\ \hline
+1003                 & IF102               & 75                      \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent Setelah berkas \textit{enrollmentgrounded} berhasil didefinisikan, tahapan berikutnya adalah menentukan klasifikasi huruf mutu (grade) akademis mahasiswa. Proses ini dirancang menggunakan komponen pemetaan baru untuk mempermudah pengelompokan nilai ke dalam kategori huruf mutu. Selanjutnya, dibuat atribut baru bernama \textit{grade} berdasarkan nilai \textit{score\_rounded} dengan ketentuan berikut:\\
+
+\begin{table}[H]
+\centering
+\caption{Ketentuan \textit{grade}}
+\begin{tabular}{|c|l|}
+\hline
+ \textbf{Score Rounded} & \textbf{Grade} \\ \hline
+ 80-100      & A              \\ \hline
+ 65-79          & B       \\ \hline
+ 50-64     & C              \\ \hline
+ 0-49      & D               \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent Komponen berkas output \textit{delimited} dari tahap sebelumnya, yaitu \textit{enrollmentgrounded}, dialirkan kembali bertindak sebagai sumber masukan utama. Berkas ini disambungkan langsung menuju komponen pemetaan baru yang diberi label \textit{tMap\_2} melalui aliran koneksi data \textit{row2 (Main)}.\\
+
+\noindent Tambahkan sebuah komponen \textit{tFileOutputDelimited} baru yang diberi label \textit{enrollmentgraded}. Komponen target ini berfungsi untuk menampung skema akhir yang sudah dilengkapi dengan kolom predikat nilai mutunya. Selanjutnya adalah menarik jalur penggabungan dari \textit{tMap\_2} keluar menuju komponen target \textit{enrollmentgraded} melalui jalur koneksi utama bernama \textit{enrollmentgrade} \textit{(Main)}.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{enroll7.jpeg}
+    \caption{Tampilan Job}
+\end{figure}
+
+\noindent Setelah komponen input \textit{enrollmentgrounded} dan komponen output \textit{enrollmentgraded} saling terhubung di dalam lembar kerja, langkah selanjutnya adalah melakukan transformasi nilai di dalam editor pemetaan \textit{tMap\_2}. Pengaturan skema dan formula ekspresi ini dirancang untuk melakukan klasifikasi indeks prestasi secara otomatis.\\
+
+\noindent Drag semua komponen pada tabel di kiri(\textit{row2}) ke tabel kanan(\textit{enrollmentgrade}). Tambahkan komponen baru bernama \textit{grade} dengan tipe data \textit{string} di \textit{Coloumn} pada tabel output untuk mengkonversi nilai angka bulat pada \textit{row2.score\_rounded} menjadi huruf mutu sesuai dengan standar parameter penilaian yang telah ditentukan, kemudian masukkan ekspresi Java berikut pada kolom \textit{Expressionnya}.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{enroll6.jpeg}
+    \caption{\textit{Expression Grad}e}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{enroll8.jpeg}
+    \caption{Tabel \textit{enrollmentgrade}}
+\end{figure}
+
+\noindent Setelah seluruh rumusan ekspresi \textit{flooring} dan konversi \textit{grade} berhasil dikonfigurasikan di dalam masing-masing komponen pemetaan, \textit{job design} dieksekusi secara utuh.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{enroll9.jpeg}
+    \caption{Eksekusi Job}
+\end{figure}
+
+\noindent Rangkaian pipa pemrosesan data nilai ini mencatat tingkat keberhasilan mutlak 100\% tanpa adanya kendala kebocoran data ataupun kegagalan sistem. Seluruh data transaksi nilai kini telah tervalidasi secara penuh untuk diteruskan menuju tahapan penggabungan data relasional utama bersama dengan entitas mahasiswa dan mata kuliah.\\
+
+\noindent Berikut merupakan 5 baris hasil transformasi data pada tabel \textit{enrollmentgrade.}
+
+\begin{table}[H]
+\centering
+\caption{Sampel Hasil Predikat Huruf Mutu (\textit{enrollmentgraded})}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{student\_id} & \textbf{course\_id} & \textbf{score\_rounded} & \textbf{grade} \\ \hline
+1001                 & IF101               & 64                      & C              \\ \hline
+1001                 & IF103               & 60                      & C              \\ \hline
+1002                 & IF105               & 78                      & B              \\ \hline
+1002                 & IF101               & 56                      & C              \\ \hline
+1003                 & IF102               & 75                      & B              \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Penggabungan Data}
+Setelah proses pembersihan dan transformasi data selesai dilakukan, tahap berikutnya adalah melakukan penggabungan data antar tabel untuk menghasilkan dataset akhir yang lebih lengkap dan terstruktur. Pada tahap ini, tabel \textit{enrollmentgraded}, \textit{StudentCleaned}, dan \textit{courses} digabungkan menggunakan atribut relasi yang sesuai.\\
+
+\noindent Penggabungan pertama dilakukan antara tabel enrollmentgraded dan \textit{StudentCleaned} menggunakan atribut \textit{student\_id} sebagai relasi utama antar tabel.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{441.png}
+\caption{Job design penggabungan \textit{enrollmentgraded} dan \textit{StudentCleaned}}
+\label{fig}
+\end{figure}
+
+\noindent Pada proses ini, tabel \textit{enrollmentgraded} digunakan sebagai \textit{main} \textit{flow}, sedangkan tabel \textit{StudentCleaned} digunakan sebagai \textit{lookup} \textit{flow}. Kedua tabel kemudian dihubungkan menuju komponen \textit{tMap} untuk dilakukan proses \textit{left} \textit{join}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{442.png}
+\caption{Pengaturan \textit{tMap} pada penggabungan pertama}
+\label{fig}
+\end{figure}
+
+\noindent Sebelum proses penggabungan dilakukan, atribut \textit{student}\_id pada kedua tabel disamakan terlebih dahulu sebagai \textit{primary key} dan \textit{foreign key} agar relasi data dapat dikenali dengan benar oleh Talend.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{443.png}
+\caption{Pengaturan relasi \textit{student\_id} pada tabel}
+\label{fig}
+\end{figure}
+
+\noindent Setelah proses relasi berhasil dilakukan, atribut seperti \textit{full\_name} dan \textit{email\_clean} dari tabel \textit{StudentCleaned} dapat digabungkan dengan data nilai mahasiswa pada tabel \textit{enrollmentgraded}.\\
+
+
+\noindent Pada output hasil penggabungan pertama, atribut \textit{course\_id} tetap dipertahankan karena akan digunakan kembali pada proses penggabungan berikutnya dengan tabel \textit{courses}.\\
+
+\noindent Selanjutnya dilakukan penggabungan kedua menggunakan tabel \textit{courses}. Sebelum proses penggabungan dilakukan, metadata tabel \textit{courses} terlebih dahulu diimpor ke dalam Talend Open Studio.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{444.png}
+\caption{Metadata tabel \textit{courses}}
+\label{fig}
+\end{figure}
+
+\noindent Setelah metadata berhasil ditambahkan, dibuat kembali \textit{job design} baru untuk menggabungkan hasil \textit{left join} sebelumnya dengan tabel \textit{courses}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{445.png}
+\caption{\textit{Job design} penggabungan hasil join dengan tabel \textit{courses}}
+\label{fig}
+\end{figure}
+
+\noindent Pada tahap ini, hasil penggabungan pertama digunakan sebagai \textit{main flow}, sedangkan tabel \textit{courses} digunakan sebagai \textit{lookup flow}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{446.png}
+\caption{Pengaturan \textit{tMap} pada penggabungan kedua}
+\label{fig}
+\end{figure}
+
+\noindent Penggabungan dilakukan menggunakan atribut \textit{course\_id} sebagai relasi utama antar tabel.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{447.png}
+\caption{Pengaturan relasi course_id pada tabel}
+\label{fig}
+\end{figure}
+
+\noindent Melalui proses ini, atribut \textit{course\_name} dari tabel \textit{courses} berhasil ditambahkan ke tabel output sehingga menghasilkan dataset akhir yang lebih lengkap.\\
+
+\noindent Setelah seluruh proses penggabungan selesai dilakukan, hasil akhir dialirkan menuju komponen \textit{tFileOutputDelimited} untuk menghasilkan file CSV akhir bernama \textit{final\_grades\_B.csv}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{448.png}
+\caption{Pengaturan output \textit{final_grades\_B.csv}}
+\label{fig}
+\end{figure}
+
+\noindent Ketika job dijalankan, seluruh proses penggabungan data berhasil dieksekusi tanpa kesalahan sehingga menghasilkan tabel akhir yang memuat informasi mahasiswa, mata kuliah, nilai pembulatan, dan grade akhir mahasiswa.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{449.png}
+\caption{Eksekusi job penggabungan data}
+\label{fig}
+\end{figure}
+
+\noindent Berikut merupakan tampilan hasil akhir dari file \textit{final\_grades\_B.csv}.
+
+\begin{table}[H]
+\centering
+\caption{Tabel hasil akhir dari file \textit{final\_grades\_B.csv}}
+\begin{tabular}{|c|l|l|c|c|}
+\hline
+\textbf{student\_id} & \textbf{full\_name} & \textbf{course\_name} & \textbf{score\_rounded} & \textbf{grade} \\ \hline
+1001 & Andi Wijaya & Basis Data & 64 & C \\ \hline
+1001 & Andi Wijaya & Aljabar Linear & 60 & C \\ \hline
+1002 & Budi Santoso & Statistika & 78 & B \\ \hline
+1002 & Budi Santoso & Basis Data & 56 & C \\ \hline
+1003 & Citra Lestari & Struktur Data & 75 & B \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Loading}
+\noindent Tahap \textit{loading} merupakan tahap akhir dalam proses ETL(\textit{Extract, Transform, Load}). Pada tahap ini, seluruh data hasil transformasi dan penggabungan disimpan ke dalam berkas CSV baru menggunakan komponen \textit{tFileOutputDelimited} pada Talend Open Studio.\\
+
+\noindent Terdapat dua file keluaran utama yang dihasilkan, yaitu
+\begin{enumerate}
+    \item \textit{student\_cleaned\_B.csv}
+    \item \textit{final\_grades\_B.csv}
+\end{enumerate}
+\noindent Sementara itu, file \textit{final\_grades\_B.csv berisi hasil akhir penggabungan seluruh tabel yang memuat informasi mahasiswa, mata kuliah, nilai pembulatan, dan grade akhir mahasiswa. File tersebut memiliki atribut:}
+\begin{enumerate}
+    \item \textit{student\_id}
+    \item \textit{full\_name}
+    \item \textit{course\_name}
+    \item \textit{score\_rounded}
+    \item \textit{grade}
+\end{enumerate}
+
+\noindent Seluruh proses loading berhasil dijalankan sehingga file CSV akhir dapat digunakan untuk kebutuhan analisis data lebih lanjut.\\
+
+\section{Kesimpulan}
+\noindent Melalui tugas ini, telah dilakukan proses ETL(\textit{Extract, Transform, Load}) terhadap tiga dataset CSV, yaitu \textit{students}, \textit{courses}, dan \textit{enrollments} menggunakan Talend Open Studio.\\
+
+\noindent Pada tahap eksplorasi data ditemukan beberapa permasalahan, seperti ketidakkonsistenan format penulisan nama, format email yang tidak valid, nilai kosong pada atribut email, serta data nilai yang masih berbentuk desimal. Seluruh permasalahan tersebut kemudian diperbaiki pada tahap transformasi melalui proses pembersihan data, pembentukan ulang email, pembulatan nilai, serta pengelompokan grade.\\
+
+\noindent Selain itu, dilakukan pula proses penggabungan data antar tabel menggunakan atribut relasi \textit{student\_id} dan \textit{course\_id} sehingga dihasilkan dataset akhir yang lebih lengkap dan terstruktur. Hasil akhir dari proses ETL file CSV baru yang telah bersih, konsisten, dan siap digunakan untuk proses analisis data lebih lanjut.\\
+
+\noindent Berikut adalah lampiran link Google Docs yang berisi prompt AI yang kami gunakan:
+
+\noindent \url{https://docs.google.com/document/d/1W-tgZEdYrmUsr-zOvxnTEDLibPWCWQ1NlxMBpBeKPrQ/edit?usp=sharing}\\
+
+\noindent Berikut adalah lampiran link Github:
+
+\noindent \url{https://github.com/brydrw27/tugas-2-rekdat}
+\end{document}
